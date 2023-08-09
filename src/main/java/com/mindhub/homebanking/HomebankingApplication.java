@@ -21,6 +21,7 @@ public class HomebankingApplication {
 	@Bean
 	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository) {
 		return args -> {
+
 			// Crear cliente Melba
 			Client melba = new Client("Melba", "Smith", "melba@mindhub.com");
 			clientRepository.save(melba);
