@@ -31,7 +31,7 @@ public class HomebankingApplication {
 			accountRepository.save(account1);
 
 			// Crear cuenta 2 para Melba
-			Account account2 = new Account("VIN002", LocalDate.now(), 7500, melba);
+			Account account2 = new Account("VIN002", LocalDate.now().plusDays(1), 7500, melba);
 			accountRepository.save(account2);
 
 
