@@ -20,25 +20,25 @@ public class ClientController {
     @Autowired
     private ClientRepository clientRepository;
 
-    @GetMapping("/clients")
+    @RequestMapping("/clients")
     public List<ClientDTO> getClients() {
         return clientRepository.findAll().stream()
-                .map(ClientDTO::new)  // Utiliza el constructor de ClientDTO que recibe Client
+                .map(ClientDTO::new)
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/clients/{id}")
+    @RequestMapping("/clients/{id}")
     public ClientDTO getClientById(@PathVariable int id) {
         return clientRepository.findById(id)
-                .map(ClientDTO::new)  // Utiliza el constructor de ClientDTO que recibe Client
+                .map(ClientDTO::new)
                 .orElse(null);
     }
 
-    @GetMapping("/clients/{id}/accounts")
+    @RequestMapping("/clients/{id}/accounts")
     public List<AccountDTO> getClientAccounts(@PathVariable int id) {
         return clientRepository.findById(id)
                 .map(client -> client.getAccounts().stream()
-                        .map(account -> new AccountDTO(account))  // Crea un nuevo objeto AccountDTO utilizando el constructor que acepta un objeto Account
+                        .map(account -> new AccountDTO(account))
                         .collect(Collectors.toList()))
                 .orElse(null);  // Si no se encuentra el cliente, retorna null
     }

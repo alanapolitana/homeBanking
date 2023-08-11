@@ -18,7 +18,7 @@ public class Client {
     private String lastName;
     private String email;
 
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "client")
     private Set<Account> accounts = new HashSet<>();
 
     public Client() {
