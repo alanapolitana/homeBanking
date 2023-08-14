@@ -25,8 +25,8 @@ public class Loan {
       private Set<Integer> payments = new HashSet<>();
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "loan")
-    @JsonIgnore
-    private Set<ClientLoan> clients = new HashSet<>();
+
+    private Set<ClientLoan> clientLoans = new HashSet<>();
 
     public Loan() {
     }
@@ -69,7 +69,7 @@ public class Loan {
 
 /*    @JsonIgnore*/
     public Set<ClientLoan> getClients() {
-        return clients;
+        return clientLoans;
     }
 
 }

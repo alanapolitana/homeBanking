@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Account {
@@ -23,7 +24,7 @@ public class Account {
     private Client client;
 
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
-    private List<Transaction> transactions;
+    private Set<Transaction> transactions;
 
     public Account() {
     }
@@ -75,11 +76,11 @@ public class Account {
         this.client = client;
     }
 
-    public List<Transaction> getTransactions() {
+    public Set<Transaction> getTransactions() {
         return transactions;
     }
 
-    public void setTransactions(List<Transaction> transactions) {
+    public void setTransactions(Set<Transaction> transactions) {
         this.transactions = transactions;
     }
 }
