@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -45,9 +46,10 @@ public class AccountController {
     private AccountDTO convertToDto(Account account) {
         AccountDTO accountDTO = new AccountDTO(account);
 
-        List<TransactionDTO> transactionDTOs = account.getTransactions().stream()
+
+        Set<TransactionDTO> transactionDTOs = account.getTransactions().stream()
                 .map(this::convertToTransactionDto)
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
         accountDTO.setTransactions(transactionDTOs);
 
         return accountDTO;

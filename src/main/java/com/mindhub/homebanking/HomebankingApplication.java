@@ -13,6 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @SpringBootApplication
@@ -49,7 +50,7 @@ public class HomebankingApplication {
 					TransactionType.CREDIT,
 					1000,
 					"Depósito",
-					LocalDate.now(),
+					LocalDateTime.now(),
 					account1
 			);
 			transactionRepository.save(transaction1MelbaAccount1);
@@ -58,7 +59,7 @@ public class HomebankingApplication {
 					TransactionType.DEBIT,
 					-200,
 					"Compra en tienda",
-					LocalDate.now().plusDays(1),
+					LocalDateTime.now().plusDays(1),
 					account1
 			);
 			transactionRepository.save(transaction2MelbaAccount1);
@@ -68,7 +69,7 @@ public class HomebankingApplication {
 					TransactionType.CREDIT,
 					2000,
 					"Transferencia recibida",
-					LocalDate.now(),
+					LocalDateTime.now(),
 					account2
 			);
 			transactionRepository.save(transaction1MelbaAccount2);
@@ -77,7 +78,7 @@ public class HomebankingApplication {
 					TransactionType.DEBIT,
 					-500,
 					"Pago de factura",
-					LocalDate.now().plusDays(1),
+					LocalDateTime.now().plusDays(1),
 					account2
 			);
 			transactionRepository.save(transaction2MelbaAccount2);
@@ -131,7 +132,7 @@ public class HomebankingApplication {
 					TransactionType.CREDIT,
 					800,
 					"Depósito",
-					LocalDate.now(),
+					LocalDateTime.now(),
 					account3
 			);
 			transactionRepository.save(transaction1MarcoAccount3);
@@ -140,7 +141,7 @@ public class HomebankingApplication {
 					TransactionType.DEBIT,
 					-150,
 					"Compra en línea",
-					LocalDate.now().plusDays(1),
+					LocalDateTime.now().plusDays(1),
 					account3
 			);
 			transactionRepository.save(transaction2MarcoAccount3);
@@ -150,7 +151,7 @@ public class HomebankingApplication {
 					TransactionType.CREDIT,
 					1200,
 					"Transferencia recibida",
-					LocalDate.now(),
+					LocalDateTime.now(),
 					account4
 			);
 			transactionRepository.save(transaction1MarcoAccount4);
@@ -159,7 +160,7 @@ public class HomebankingApplication {
 					TransactionType.DEBIT,
 					-300,
 					"Pago de factura",
-					LocalDate.now().plusDays(1),
+					LocalDateTime.now().plusDays(1),
 					account4
 			);
 			transactionRepository.save(transaction2MarcoAccount4);

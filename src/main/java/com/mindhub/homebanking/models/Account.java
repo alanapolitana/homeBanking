@@ -4,7 +4,9 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Account {
@@ -15,7 +17,9 @@ public class Account {
     private Long id;
 
     private String number;
-    private LocalDate date;
+    private LocalDate creationDate;
+    private LocalDateTime localDateTime;
+
     private Double balance;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -23,24 +27,23 @@ public class Account {
     private Client client;
 
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
-    private List<Transaction> transactions;
+    private Set<Transaction> transactions = new HashSet<>();
 
-    public Account() {
+    // Constructor sin parámetros requerido por JPA
+    protected Account() {
     }
 
-    public Account(String number, LocalDate date, Double balance, Client client) {
+    // Constructor principal para creación de cuenta
+    public Account(String number, LocalDate now, Double balance, Client client) {
         this.number = number;
-        this.date = date;
+        this.creationDate = LocalDate.now();
+        this.localDateTime = LocalDateTime.now();
         this.balance = balance;
         this.client = client;
     }
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getNumber() {
@@ -51,19 +54,15 @@ public class Account {
         this.number = number;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDate getCreationDate() {
+        return creationDate;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public double getBalance() {
+    public Double getBalance() {
         return balance;
     }
 
-    public void setBalance(double balance) {
+    public void setBalance(Double balance) {
         this.balance = balance;
     }
 
@@ -75,11 +74,23 @@ public class Account {
         this.client = client;
     }
 
-    public List<Transaction> getTransactions() {
+    public Set<Transaction> getTransactions() {
         return transactions;
     }
 
-    public void setTransactions(List<Transaction> transactions) {
+    public LocalDateTime getLocalDateTime() {
+        return localDateTime;
+    }
+
+    public void setCreationDate(LocalDate creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public void setLocalDateTime(LocalDateTime localDateTime) {
+        this.localDateTime = localDateTime;
+    }
+
+    public void setTransactions(Set<Transaction> transactions) {
         this.transactions = transactions;
     }
 }

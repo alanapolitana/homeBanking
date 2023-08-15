@@ -70,10 +70,3 @@ public class ClientLoan {
     }
 }
 
-
-/*
-Claro, veo que has creado la entidad ClientLoan correctamente y has definido las relaciones con las entidades Client y Loan utilizando las anotaciones @ManyToOne y @JoinColumn. Esto es precisamente lo que necesitabas para establecer la relación entre un cliente y un préstamo a través de la entidad ClientLoan.
-
-        El atributo amount representa el monto del préstamo solicitado por el cliente, y payments indica el número de pagos en los que se dividirá el préstamo. Estos atributos son específicos de la relación entre el cliente y el préstamo, por lo que tiene sentido que estén en la entidad ClientLoan.
-
-        En general, has hecho las modificaciones correctas y has creado la entidad ClientLoan de manera adecuada para representar la relación de muchos a muchos entre clientes y préstamos. Si deseas probarlo, te sugiero que sigas adelante con la implementación y realices pruebas para asegurarte de que todo funcione como esperas.*/
