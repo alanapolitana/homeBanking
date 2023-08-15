@@ -117,11 +117,11 @@ public class HomebankingApplication {
 			clientRepository.save(marco);
 
 			// Crear cuenta 1 para Marco
-			Account account3 = new Account("345678", LocalDate.now(), 3000.0, marco);
+			Account account3 = new Account("VIN003", LocalDate.now(), 3000.0, marco);
 			accountRepository.save(account3);
 
 			// Crear cuenta 2 para Marco
-			Account account4 = new Account("567890", LocalDate.now(), 4500.0, marco);
+			Account account4 = new Account("VIN004", LocalDate.now(), 4500.0, marco);
 			accountRepository.save(account4);
 
 
