@@ -116,14 +116,14 @@ public class HomebankingApplication {
 			melba.addCard(titanium);
 			cardRepository.save(titanium);
 
-			Card goldenn = new Card(melba.getFirstName()+" "+ melba.getLastName(),CardType.DEBIT,CardColor.GOLD,"0123 4546 7890 4561",666,LocalDate.now(),LocalDate.now().plusYears(5));
+/*			Card goldenn = new Card(melba.getFirstName()+" "+ melba.getLastName(),CardType.DEBIT,CardColor.GOLD,"0123 4546 7890 4561",666,LocalDate.now(),LocalDate.now().plusYears(5));
 			melba.addCard(goldenn);
 			cardRepository.save(goldenn);
 
 
 			Card titaniumm = new Card(melba.getFirstName()+" "+ melba.getLastName(),CardType.CREDIT,CardColor.SILVER,"0123 4546 7890 4562",777,LocalDate.now(),LocalDate.now().plusYears(5));
 			melba.addCard(titaniumm);
-			cardRepository.save(titaniumm);
+			cardRepository.save(titaniumm);*/
 /*
 (String cardHolder, CardType type, CardColor color, String number, Integer cvv,
 					LocalDate fromDate, LocalDate thruDate)
