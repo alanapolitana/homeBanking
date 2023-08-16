@@ -1,16 +1,13 @@
 package com.mindhub.homebanking;
 
-import com.mindhub.homebanking.models.Client;
-import com.mindhub.homebanking.models.Account;
-import com.mindhub.homebanking.models.Transaction;
-import com.mindhub.homebanking.models.Loan;
-import com.mindhub.homebanking.models.TransactionType;
-import com.mindhub.homebanking.models.ClientLoan;
+import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.repository.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
+
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -29,7 +26,8 @@ public class HomebankingApplication {
 			AccountRepository accountRepository,
 			TransactionRepository transactionRepository,
 			LoanRepository loanRepository,
-			ClientLoanRepository clientLoanRepository
+			ClientLoanRepository clientLoanRepository,
+			CardRepository cardRepository
 	) {
 		return args -> {
 
@@ -109,6 +107,46 @@ public class HomebankingApplication {
 
 
 
+			Card golden = new Card(melba.getFirstName()+" "+ melba.getLastName(),CardType.DEBIT,CardColor.GOLD,"0123 4546 7890 4561",666,LocalDate.now(),LocalDate.now().plusYears(5));
+            			melba.addCard(golden);
+			cardRepository.save(golden);
+
+
+			Card titanium = new Card(melba.getFirstName()+" "+ melba.getLastName(),CardType.CREDIT,CardColor.TITANIUM,"0123 4546 7890 4562",777,LocalDate.now(),LocalDate.now().plusYears(5));
+			melba.addCard(titanium);
+			cardRepository.save(titanium);
+
+			Card goldenn = new Card(melba.getFirstName()+" "+ melba.getLastName(),CardType.DEBIT,CardColor.GOLD,"0123 4546 7890 4561",666,LocalDate.now(),LocalDate.now().plusYears(5));
+			melba.addCard(goldenn);
+			cardRepository.save(goldenn);
+
+
+			Card titaniumm = new Card(melba.getFirstName()+" "+ melba.getLastName(),CardType.CREDIT,CardColor.SILVER,"0123 4546 7890 4562",777,LocalDate.now(),LocalDate.now().plusYears(5));
+			melba.addCard(titaniumm);
+			cardRepository.save(titaniumm);
+/*
+(String cardHolder, CardType type, CardColor color, String number, Integer cvv,
+					LocalDate fromDate, LocalDate thruDate)
+			Una tarjeta de débito GOLD para el cliente Melba,
+			 la fecha de inicio de validez es la fecha actual y
+			  la fecha de vencimiento 5 años desde la fecha actual,
+			   cardholder tendrá el nombre y apellido del cliente concatenado,
+			    los demás campos los puedes completar a tu elección,
+			     recuerda que el cvv tiene solo 3 dígitos.
+
+
+			     Una tarjeta de crédito Titanium para el cliente Melba con los mismos datos excepto número y cvv.
+
+Crea una tarjeta de crédito silver para el segundo cliente.
+*/
+
+
+
+
+
+
+
+
 
 
 
@@ -117,11 +155,11 @@ public class HomebankingApplication {
 			clientRepository.save(marco);
 
 			// Crear cuenta 1 para Marco
-			Account account3 = new Account("345678", LocalDate.now(), 3000.0, marco);
+			Account account3 = new Account("VIN003", LocalDate.now(), 3000.0, marco);
 			accountRepository.save(account3);
 
 			// Crear cuenta 2 para Marco
-			Account account4 = new Account("567890", LocalDate.now(), 4500.0, marco);
+			Account account4 = new Account("VIN004", LocalDate.now(), 4500.0, marco);
 			accountRepository.save(account4);
 
 
@@ -173,6 +211,12 @@ public class HomebankingApplication {
 
 			ClientLoan marcoAutomotriz = new ClientLoan(200000.0, 36, marco, automotriz);
 			clientLoanRepository.save(marcoAutomotriz);
+
+			Card silver = new Card(marco.getFirstName()+" "+ marco.getLastName(),CardType.CREDIT,CardColor.SILVER,"0123 4546 7890 4599",888,LocalDate.now(),LocalDate.now().plusYears(5));
+
+			marco.addCard(silver);
+			cardRepository.save(silver);
+
 
 		};
 	}

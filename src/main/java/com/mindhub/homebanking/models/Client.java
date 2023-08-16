@@ -38,6 +38,11 @@ public class Client {
 
     private Set<ClientLoan> clientLoans = new HashSet<>();
 
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "client")
+    private Set<Card> cards = new HashSet<>();
+
+
+
     public Client() {
     }
 
@@ -105,5 +110,16 @@ public class Client {
         return clientLoans.stream().map(ClientLoan::getLoan).collect(Collectors.toSet());
     }
 
+    public Set<Card> getCards() {
+        return cards;
+    }
 
+    public void setCards(Set<Card> cards) {
+        this.cards = cards;
+    }
+
+    public void  addCard(Card card){
+        card.setClient(this);
+        cards.add(card);
+}
 }

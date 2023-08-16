@@ -29,8 +29,8 @@ public class ClientLoan {
     public ClientLoan(Double amount, Integer payments, Client client, Loan loan) {
         this.amount = amount;
         this.payments = payments;
-        this.client = client;
-        this.loan = loan;
+        this.client = client; /*no iria*/
+        this.loan = loan; /*no iria*/
     }
 
     public Long getId() {
