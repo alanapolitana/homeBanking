@@ -14,13 +14,6 @@ public class TransactionDTO {
     public TransactionDTO() {
     }
 
-    public TransactionDTO(TransactionType type, double amount, String description, LocalDateTime date) {
-        this.type = type;
-        this.amount = amount;
-        this.description = description;
-        this.date = date;
-    }
-
     public TransactionDTO(Transaction transaction) {
         this.type = transaction.getType();
         this.amount = transaction.getAmount();

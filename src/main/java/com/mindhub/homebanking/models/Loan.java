@@ -9,8 +9,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@JsonIgnoreProperties("clients")
-
 public class Loan {
 
     @Id
@@ -22,10 +20,9 @@ public class Loan {
     private Double maxAmount;
 
     @ElementCollection
-      private Set<Integer> payments = new HashSet<>();
+    private Set<Integer> payments = new HashSet<>();
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "loan")
-
     private Set<ClientLoan> clientLoans = new HashSet<>();
 
     public Loan() {
@@ -67,7 +64,7 @@ public class Loan {
         this.payments = payments;
     }
 
-/*    @JsonIgnore*/
+    @JsonIgnore
     public Set<ClientLoan> getClients() {
         return clientLoans;
     }
@@ -77,6 +74,7 @@ public class Loan {
 
   /*  El método setClients() no se crea en este caso porque estamos manejando una relación uno a muchos entre la entidad Loan y la entidad ClientLoan. En este tipo de relación, el control de la asignación de los clientes a los préstamos se realiza a través de la creación de objetos ClientLoan, que actúan como registros intermedios que almacenan la información adicional como el monto y las cuotas.
 
+        Cuando se trata de relaciones uno a muchos, como en este caso, la creación y actualización de los registros relacionados generalmente se realiza a través de los objetos que representan la entidad intermedia (ClientLoan en este caso). El objeto Loan simplemente tiene una colección de ClientLoan que representa los registros intermedios que asocian a los clientes con el préstamo.
         Cuando se trata de relaciones uno a muchos, como en este caso, la creación y actualización de los registros relacionados generalmente se realiza a través de los objetos que representan la entidad intermedia (ClientLoan en este caso). El objeto Loan simplemente tiene una colección de ClientLoan que representa los registros intermedios que asocian a los clientes con el préstamo.
 
         Por lo tanto, no se necesita un método setClients() en la clase Loan, ya que la asignación de clientes se maneja a través de los objetos ClientLoan y no directamente desde la entidad Loan.

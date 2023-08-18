@@ -12,28 +12,21 @@ public class Card {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
+
     private Long id;
-
     private String cardHolder;
-
     private CardType type;
-
     private CardColor color;
-
     private String number;
-
     private Integer cvv;
-
     private LocalDate fromDate;
-
     private LocalDate thruDate;
 
-
-  /*Relacion*/
+    /*Relacion*/
     @ManyToOne (fetch = FetchType.EAGER)
     private Client client;
 
-/*ConstructorVacio*/
+    /*ConstructorVacio*/
     public Card(){}
 
     public Card(String cardHolder, CardType type, CardColor color, String number, Integer cvv,
@@ -48,21 +41,13 @@ public class Card {
     }
 
 
-/*GettersandSetters*/
+    /*GettersandSetters*/
     public Long getId() {
         return id;
     }
-
-/*
-    public void setId(Long id) {
-        this.id = id;
-    }
-*/
-
     public String getCardHolder() {
         return cardHolder;
     }
-
     public void setCardHolder(String cardHolder) {
         this.cardHolder = cardHolder;
     }
