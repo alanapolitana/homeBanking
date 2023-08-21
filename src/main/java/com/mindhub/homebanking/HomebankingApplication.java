@@ -2,11 +2,12 @@ package com.mindhub.homebanking;
 
 import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.repository.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 import java.time.LocalDate;
@@ -20,6 +21,9 @@ public class HomebankingApplication {
 		SpringApplication.run(HomebankingApplication.class, args);
 	}
 
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	@Bean
 	public CommandLineRunner initData(
 			ClientRepository clientRepository,
@@ -32,7 +36,8 @@ public class HomebankingApplication {
 		return args -> {
 
 			// Crear cliente Melba
-			Client melba = new Client("Melba", "Smith", "melba@mindhub.com");
+			Client melba = new Client("Melba", "Smith", "melba@mindhub.com",passwordEncoder.encode("123456"));
+
 			clientRepository.save(melba);
 
 			// Crear cuenta 1 para Melba
@@ -151,7 +156,7 @@ Crea una tarjeta de crédito silver para el segundo cliente.
 
 
 			// Crear otro cliente Marco
-			Client marco = new Client("Marco", "Virinni", "estudiante@mindhub.com");
+			Client marco = new Client("Marco", "Virinni", "estudiante@mindhub.com", passwordEncoder.encode("987654"));
 			clientRepository.save(marco);
 
 			// Crear cuenta 1 para Marco
@@ -212,6 +217,8 @@ Crea una tarjeta de crédito silver para el segundo cliente.
 			ClientLoan marcoAutomotriz = new ClientLoan(200000.0, 36, marco, automotriz);
 			clientLoanRepository.save(marcoAutomotriz);
 
+
+			//TARJETA MARCO
 			Card silver = new Card(marco.getFirstName()+" "+ marco.getLastName(),CardType.CREDIT,CardColor.SILVER,"0123 4546 7890 4599",888,LocalDate.now(),LocalDate.now().plusYears(5));
 
 			marco.addCard(silver);

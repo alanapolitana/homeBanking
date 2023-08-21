@@ -26,6 +26,8 @@ public class Client {
     private String lastName;
     private String email;
 
+    private String password;
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "client")
     private Set<Account> accounts = new HashSet<>();
 
@@ -39,10 +41,11 @@ public class Client {
     public Client() {
     }
 
-    public Client(String firstName, String lastName, String email) {
+    public Client(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.password = password;
     }
 
     /*GettersAndSetters*/
@@ -54,6 +57,8 @@ public class Client {
         this.id = id;
     }*/
 
+
+    //NAME GTY
     public String getFirstName() {
         return firstName;
     }
@@ -62,6 +67,8 @@ public class Client {
         this.firstName = firstName;
     }
 
+
+    //LASTNAME GYS
     public String getLastName() {
         return lastName;
     }
@@ -70,6 +77,8 @@ public class Client {
         this.lastName = lastName;
     }
 
+
+    //EMAIL GYS
     public String getEmail() {
         return email;
     }
@@ -78,6 +87,7 @@ public class Client {
         this.email = email;
     }
 
+    //ACCOUNTS GYS
     public Set<Account> getAccounts() {
         return accounts;
     }
@@ -86,6 +96,7 @@ public class Client {
         this.accounts = accounts;
     }
 
+    //LOANS/ CLIENT-LOANS GYS
 
     public Set<ClientLoan> getLoans() {
         return clientLoans;
@@ -98,6 +109,8 @@ public class Client {
     public Set<Loan> getClientLoans() {
         return clientLoans.stream().map(ClientLoan::getLoan).collect(Collectors.toSet());
     }
+
+    //CARDS GYS
     public Set<Card> getCards() {
         return cards;
     }
@@ -105,6 +118,15 @@ public class Client {
         this.cards = cards;
     }
 
+    //PASWORDS GYS
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
 /*Metodos de Acceso personalizados: están diseñados para realizar operaciones más específicas, como agregar elementos a colecciones o establecer relaciones.
 Te permiten acceder y manipular el estado de la instancia de una manera controlada.
