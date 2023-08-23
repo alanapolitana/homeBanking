@@ -36,7 +36,7 @@ public class HomebankingApplication {
 		return args -> {
 
 			// Crear cliente Melba
-			Client melba = new Client("Melba", "Smith", "melba@mindhub.com",passwordEncoder.encode("123456"));
+			Client melba = new Client("Melba", "Smith", "melba@mindhub.com", passwordEncoder.encode("123456"), RoleType.CLIENT);
 
 			clientRepository.save(melba);
 
@@ -152,11 +152,12 @@ Crea una tarjeta de crédito silver para el segundo cliente.
 
 
 
+			Client juan = new Client("Juan", "Perez", "admin@mindhub.com", passwordEncoder.encode("147258"), RoleType.ADMIN);
+			clientRepository.save(juan);
 
 
-
-			// Crear otro cliente Marco
-			Client marco = new Client("Marco", "Virinni", "estudiante@mindhub.com", passwordEncoder.encode("987654"));
+			// Crear otro cliente Marco (ADMIN)
+			Client marco = new Client("Marco", "Virinni", "estudiante@mindhub.com", passwordEncoder.encode("987654"), RoleType.CLIENT);
 			clientRepository.save(marco);
 
 			// Crear cuenta 1 para Marco

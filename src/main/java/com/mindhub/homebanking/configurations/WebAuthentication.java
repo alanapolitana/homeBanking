@@ -1,6 +1,7 @@
 package com.mindhub.homebanking.configurations;
 
 import com.mindhub.homebanking.models.Client;
+import com.mindhub.homebanking.models.RoleType;
 import com.mindhub.homebanking.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -21,22 +22,39 @@ public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
 
     @Override
     public void init(AuthenticationManagerBuilder auth) throws Exception {
+
         auth.userDetailsService(inputName-> {
 
             Client client = clientRepository.findByEmail(inputName);
 
             if (client != null) {
-                return new User(client.getEmail(), client.getPassword(),
-                        AuthorityUtils.createAuthorityList("USER"));
+
+                if(client.getRole().equals(RoleType.ADMIN)){
+                    return new User(client.getEmail(), client.getPassword(),
+
+                            AuthorityUtils.createAuthorityList("ADMIN"));
+                }else{
+                    return new User(client.getEmail(), client.getPassword(),
+
+                            AuthorityUtils.createAuthorityList("CLIENT"));
+                }
+
 
             } else {
-                throw new UsernameNotFoundException("Unknown user: "+ inputName);
+
+                throw new UsernameNotFoundException("Unknown user: " + inputName);
+
             }
+
         });
+
     }
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-    }
 
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+
+    }
 }
+
+

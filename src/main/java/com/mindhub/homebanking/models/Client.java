@@ -12,9 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-/*
-@JsonIgnoreProperties("clientLoans")
-*/
+
 public class Client {
 
     @Id
@@ -27,6 +25,9 @@ public class Client {
     private String email;
 
     private String password;
+    @Enumerated(EnumType.STRING)
+    private RoleType role;
+
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "client")
     private Set<Account> accounts = new HashSet<>();
@@ -41,11 +42,12 @@ public class Client {
     public Client() {
     }
 
-    public Client(String firstName, String lastName, String email, String password) {
+    public Client(String firstName, String lastName, String email, String password,RoleType role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        this.role=role;
     }
 
     /*GettersAndSetters*/
@@ -57,6 +59,13 @@ public class Client {
         this.id = id;
     }*/
 
+    public RoleType getRole() {
+        return role;
+    }
+
+    public void setRole(RoleType role) {
+        this.role = role;
+    }
 
     //NAME GTY
     public String getFirstName() {
