@@ -63,5 +63,15 @@ public class AccountController {
 
         return new ResponseEntity<>("Account created", HttpStatus.CREATED);
     }
+    @GetMapping("/clients/current/accounts")
+    public ResponseEntity<List<AccountDTO>> getClientAccounts(Authentication authentication) {
+        String email = authentication.getName();
+        Client client = clientRepository.findByEmail(email);
 
+        List<AccountDTO> accountDTOs = client.getAccounts().stream()
+                .map(AccountDTO::new)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(accountDTOs);
+    }
 }

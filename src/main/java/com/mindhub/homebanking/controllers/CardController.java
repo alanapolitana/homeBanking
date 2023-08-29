@@ -1,5 +1,6 @@
 package com.mindhub.homebanking.controllers;
 
+import com.mindhub.homebanking.dtos.CardDTO;
 import com.mindhub.homebanking.models.Card;
 import com.mindhub.homebanking.models.CardColor;
 import com.mindhub.homebanking.models.CardType;
@@ -10,13 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -84,6 +84,21 @@ public class CardController {
     private Integer generateRandomCVV() {
         Random random = new Random();
         return 100 + random.nextInt(900); // Generar un número aleatorio de tres dígitos (100-999)
+    }
+
+
+
+
+    @GetMapping("/clients/current/cards")
+    public ResponseEntity<List<CardDTO>> getClientCards(Authentication authentication) {
+        String email = authentication.getName();
+        Client client = clientRepository.findByEmail(email);
+
+        List<CardDTO> cardDTOs = client.getCards().stream()
+                .map(CardDTO::new)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(cardDTOs);
     }
 
 }

@@ -31,13 +31,14 @@ public class WebAuthorization {
                                 .antMatchers("/web/index.html", "/web/img/*", "/web/css/*", "/web/js/index.js").permitAll()
                                 .antMatchers(HttpMethod.POST, "/api/clients").permitAll()
                                 .antMatchers(HttpMethod.POST, "/api/clients/current/accounts").hasAuthority("CLIENT")
-                                .antMatchers("/api/clients/current/cards").hasAuthority("CLIENT") // Permitir acceso a crear tarjetas para usuarios con rol "CLIENT"
+                                .antMatchers("/api/clients/current/cards").hasAuthority("CLIENT")
                                 .antMatchers("/rest/**").hasAuthority("ADMIN")
                                 .antMatchers(HttpMethod.GET, "/api/clients/current", "/api/accounts/*", "/web/**").hasAnyAuthority("CLIENT", "ADMIN")
                                 .antMatchers(HttpMethod.GET, "/api/clients").hasAuthority("ADMIN")
                                 .antMatchers("/api/**").hasAuthority("ADMIN")
                                 .antMatchers("/h2-console/**").hasAuthority("ADMIN")
                                 .anyRequest().denyAll()
+
                 )
                 .formLogin(formLogin ->
                         formLogin
