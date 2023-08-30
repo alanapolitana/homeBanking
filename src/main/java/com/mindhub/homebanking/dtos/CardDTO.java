@@ -26,7 +26,7 @@ public class CardDTO {
 
     private LocalDate thruDate;
 
-    private Client client;
+   // private Client client;
 
 
     public CardDTO() {
@@ -77,7 +77,7 @@ public class CardDTO {
         return thruDate;
     }
 
-    public Client getClient() {
-        return client;
-    }
+   // public Client getClient() {return client;}
+
+
 }
