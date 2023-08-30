@@ -29,6 +29,7 @@ public class WebAuthorization {
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
 
+                                .antMatchers(HttpMethod.PATCH, "/api/admin/clients/{id}").hasAuthority("ADMIN")
                                 .antMatchers("/web/index.html", "/web/img/*", "/web/css/*", "/web/js/index.js").permitAll()
                                 .antMatchers(HttpMethod.POST, "/api/clients").permitAll()
                                 .antMatchers(HttpMethod.POST, "/api/clients/current/accounts").hasAuthority("CLIENT")

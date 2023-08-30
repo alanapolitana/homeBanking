@@ -1,55 +1,40 @@
 package com.mindhub.homebanking.services;
-
 import com.mindhub.homebanking.models.*;
-import com.mindhub.homebanking.repository.CardRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
 import java.util.Random;
-
-@Service
-public class CardService {
-
-    @Autowired
-    private CardRepository cardRepository;
-
-    public Card createCard(Client client, CardColor color, CardType type) {
-
-        if (client.getCards().stream().filter(card -> card.getType() == type).count() >= 3) {
-            return null;  // El cliente ya tiene 3 tarjetas del mismo tipo
+import java.util.Set;
+public final class CardService {
+    public static boolean controlCard(Set<Card> cards, CardType cardType, CardColor cardColor)
+    {
+        for (Card card:cards
+             ) {
+            if (card.getType().equals(cardType)&&card.getColor().equals(cardColor)){
+                return true;
+            }
         }
-
-        String cardHolder = client.getFirstName() + " " + client.getLastName();
-        String number = generateRandomCardNumber();
-        Integer cvv = generateRandomCVV();
-        LocalDate fromDate = LocalDate.now();
-        LocalDate thruDate = fromDate.plusYears(5);
-
-        Card newCard = new Card(cardHolder, type, color, number, cvv, fromDate, thruDate);
-        newCard.setClient(client);
-        cardRepository.save(newCard);
-
-        return newCard;
+        return false;
     }
-
-
-    private String generateRandomCardNumber() {
+public static String generateRandomCardNumber() {
         Random random = new Random();
         StringBuilder cardNumber = new StringBuilder();
 
         // Generar cuatro secciones de cuatro números aleatorios cada una
         for (int i = 0; i < 4; i++) {
-            cardNumber.append(random.nextInt(10000));
+            cardNumber.append(generateRandomSection());
             if (i < 3) {
-                cardNumber.append("-");
+                cardNumber.append(" ");
             }
         }
-
         return cardNumber.toString();
     }
-
-    private Integer generateRandomCVV() {
+ public static String generateRandomSection() {
+        Random random = new Random();
+        StringBuilder section = new StringBuilder();
+        for (int i = 0; i < 4; i++) {
+            section.append(random.nextInt(10));
+        }
+        return section.toString();
+    }
+    public static Integer generateRandomCVV() {
         Random random = new Random();
         return 100 + random.nextInt(900); // Generar un número aleatorio de tres dígitos (100-999)
     }
