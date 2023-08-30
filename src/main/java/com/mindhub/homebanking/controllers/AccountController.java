@@ -43,8 +43,7 @@ public class AccountController {
         }
         return new AccountDTO(account);
     }
-    @PostMapping("/clients/current/accounts")
-    //  @PreAuthorize("hasAuthority('CLIENT')")
+    /*@PostMapping("/clients/current/accounts")
     public ResponseEntity<String> createAccount(Authentication authentication) {
         String email = authentication.getName();
         Client client = clientRepository.findByEmail(email);
@@ -62,9 +61,31 @@ public class AccountController {
         clientRepository.save(client);
 
         return new ResponseEntity<>("Account created", HttpStatus.CREATED);
+    }*/
+
+    @PostMapping("/clients/current/accounts")
+    public ResponseEntity<Object> createAccount(Authentication authentication) {
+        String email = authentication.getName();
+        Client client = clientRepository.findByEmail(email);
+
+        if (client.getAccounts().size() >= 3) {
+            return new ResponseEntity<>("Maximum number of accounts reached", HttpStatus.FORBIDDEN);
+        }
+
+        // Generate a random account number (VIN + random number)
+        String accountNumber = "VIN" + String.format("%06d", (int) (Math.random() * 1000000));
+
+        Account newAccount = new Account(accountNumber, LocalDate.now(), 0.0, client);
+        client.addAccount(newAccount);
+        accountRepository.save(newAccount);
+        clientRepository.save(client);
+
+        return new ResponseEntity<>("Account created", HttpStatus.CREATED);
     }
+
+
     @GetMapping("/clients/current/accounts")
-    public ResponseEntity<List<AccountDTO>> getClientAccounts(Authentication authentication) {
+    public ResponseEntity<Object> getClientAccounts(Authentication authentication) {
         String email = authentication.getName();
         Client client = clientRepository.findByEmail(email);
 
@@ -74,4 +95,5 @@ public class AccountController {
 
         return ResponseEntity.ok(accountDTOs);
     }
+
 }

@@ -1,8 +1,8 @@
-package com.mindhub.homebanking.services;
+package com.mindhub.homebanking.Utils;
 import com.mindhub.homebanking.models.*;
 import java.util.Random;
 import java.util.Set;
-public final class CardService {
+public final class CardUtils {
     public static boolean controlCard(Set<Card> cards, CardType cardType, CardColor cardColor)
     {
         for (Card card:cards
