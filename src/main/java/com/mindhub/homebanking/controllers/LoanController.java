@@ -46,15 +46,6 @@ public class LoanController {
         }
         return Collections.emptySet();
     }
-/*
-    @GetMapping("/clients/{clientId}/clientLoans")
-    public Set<Loan> getClientLoans(@PathVariable Long clientId) {
-        ClientDTO client = clientService.getClientById(clientId);
-        if (client != null) {
-            return client.getClientLoans();
-        }
-        return Collections.emptySet();
-    }*/
 
     @GetMapping("/loans")
     public List<LoanDTO> getLoans() {

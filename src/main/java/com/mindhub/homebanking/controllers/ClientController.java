@@ -47,19 +47,7 @@ public class ClientController {
     public List<AccountDTO> getClientAccounts(@PathVariable Long clientId) {
         return clientService.getClientAccounts(clientId);
     }
-  /*  @GetMapping("/clients/current")
-    public ResponseEntity<ClientDTO> getCurrentClient(Authentication authentication) {
-        String email = authentication.getName();
-        Client client = clientService.findByEmail(email);
 
-        if (client != null) {
-            ClientDTO clientDTO = new ClientDTO(client); // Utilizar el constructor con objeto Client
-            return ResponseEntity.ok(clientDTO);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-*/
   @GetMapping("/clients/current")
   public ResponseEntity<ClientDTO> getCurrentClient(Authentication authentication) {
       String email = authentication.getName();

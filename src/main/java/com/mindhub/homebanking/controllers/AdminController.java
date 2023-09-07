@@ -36,4 +36,15 @@ public class AdminController {
         }
     }
 */
+//loan controller
+    /*
+    @GetMapping("/clients/{clientId}/clientLoans")
+    public Set<Loan> getClientLoans(@PathVariable Long clientId) {
+        ClientDTO client = clientService.getClientById(clientId);
+        if (client != null) {
+            return client.getClientLoans();
+        }
+        return Collections.emptySet();
+    }*/
+
 }
