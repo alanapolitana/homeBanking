@@ -22,29 +22,5 @@ public class AdminController {
     public List<ClientDTO> getAllClients() {
         return clientService.getAllClients();
     }
-/*
-    @PatchMapping("/admin/clients/{id}")
-    public ResponseEntity<Object> makeClientAdmin(@PathVariable Long id) {
-        Client client = clientService.clientById(id);
-        if (client != null) {
-            client.setRole(RoleType.ADMIN);
-            clientService.saveClient(client);
-
-            return new ResponseEntity<>(new ClientDTO(client), HttpStatus.ACCEPTED);
-        } else {
-            return new ResponseEntity<>("Client not found", HttpStatus.FORBIDDEN);
-        }
-    }
-*/
-//loan controller
-    /*
-    @GetMapping("/clients/{clientId}/clientLoans")
-    public Set<Loan> getClientLoans(@PathVariable Long clientId) {
-        ClientDTO client = clientService.getClientById(clientId);
-        if (client != null) {
-            return client.getClientLoans();
-        }
-        return Collections.emptySet();
-    }*/
 
 }
