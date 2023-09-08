@@ -40,6 +40,9 @@ public class Card {
         this.thruDate = thruDate;
     }
 
+    public Card(String s, CardType cardType, CardColor cardColor, String newCardNumber, int newCVV) {
+    }
+
 
     /*GettersandSetters*/
     public Long getId() {
