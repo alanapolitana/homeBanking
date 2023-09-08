@@ -77,7 +77,7 @@ public class CardDTO {
         return thruDate;
     }
 
-   // public Client getClient() {return client;}
+
 
 
 }

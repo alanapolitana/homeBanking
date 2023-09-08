@@ -46,14 +46,14 @@ public class TransactionController {
 
         // Validaciones de datos en la solicitud
         if (amount == null || amount < 0 || description.isBlank() || fromAccountNumber.isBlank() || toAccountNumber.isBlank()) {
-            return new ResponseEntity<>("Missing data in request", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Missing data in request", HttpStatus.FORBIDDEN);
         }
 
         Account fromAccount = accountService.findByNumber(fromAccountNumber);
         Account toAccount = accountService.findByNumber(toAccountNumber);
 
         if (fromAccount == null || toAccount == null) {
-            return new ResponseEntity<>("Destination account is invalid", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Destination account is invalid", HttpStatus.FORBIDDEN);
         }
 
         // Verificar si el cliente autenticado tiene acceso a la cuenta de origen
