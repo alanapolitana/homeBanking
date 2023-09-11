@@ -34,7 +34,7 @@ public class HomebankingApplication {
 			CardRepository cardRepository
 	) {
 		return args -> {
-
+/*
 			// Crear cliente Melba
 			Client melba = new Client("Melba", "Smith", "melba@mindhub.com", passwordEncoder.encode("123456"), RoleType.CLIENT);
 
@@ -194,7 +194,7 @@ public class HomebankingApplication {
 
 			marco.addCard(silver);
 			cardRepository.save(silver);
-
+*/
 
 		};
 	}
