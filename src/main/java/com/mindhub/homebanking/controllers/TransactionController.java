@@ -45,14 +45,35 @@ public class TransactionController {
         Client client = clientService.findByEmail(email);
 
         // Validaciones de datos en la solicitud
-        if (amount == null || amount < 0 || description.isBlank() || fromAccountNumber.isBlank() || toAccountNumber.isBlank()) {
-            return new ResponseEntity<>("Missing data in request", HttpStatus.FORBIDDEN);
+
+        if (amount == null ) {
+            return new ResponseEntity<>("You must be indicate a amount", HttpStatus.FORBIDDEN);
         }
+        if (amount <= 0) {
+            return new ResponseEntity<>("the amount entered must be >0", HttpStatus.FORBIDDEN);
+        }
+        if (description.isBlank()) {
+            return new ResponseEntity<>("you will indicate one 'description' in the request", HttpStatus.FORBIDDEN);
+        }
+        if (fromAccountNumber.isBlank()) {
+            return new ResponseEntity<>("Invalid or missing 'fromAccountNumber' in the request", HttpStatus.FORBIDDEN);
+        }
+        if (toAccountNumber.isBlank()) {
+            return new ResponseEntity<>("Invalid or missing 'toAccountNumber' in the request", HttpStatus.FORBIDDEN);
+        }
+
+     /*   if (amount == null || amount < 0 || description.isBlank() || fromAccountNumber.isBlank() || toAccountNumber.isBlank()) {
+            return new ResponseEntity<>("Missing data in request", HttpStatus.FORBIDDEN);
+        }*/
 
         Account fromAccount = accountService.findByNumber(fromAccountNumber);
         Account toAccount = accountService.findByNumber(toAccountNumber);
 
-        if (fromAccount == null || toAccount == null) {
+
+        if (fromAccount == null ) {
+            return new ResponseEntity<>("Origin account is invalid", HttpStatus.FORBIDDEN);
+        }
+        if (toAccount == null) {
             return new ResponseEntity<>("Destination account is invalid", HttpStatus.FORBIDDEN);
         }
 
@@ -66,10 +87,28 @@ public class TransactionController {
             return new ResponseEntity<>("The destination account does not belong to the recipient client", HttpStatus.FORBIDDEN);
         }
 
-        if (!TransactionUtils.availableBalance(client.getAccounts(), fromAccountNumber, amount)) {
+
+        if (fromAccount.getBalance() < amount) {
             return new ResponseEntity<>("Insufficient balance in origin account", HttpStatus.FORBIDDEN);
         }
 
+      /*  if (!TransactionUtils.availableBalance(client.getAccounts(), fromAccountNumber, amount)) {
+            return new ResponseEntity<>("Insufficient balance in origin account", HttpStatus.FORBIDDEN);
+        }*/
+
+
+        // Actualizar los saldos de las cuentas
+        double newBalanceOrigin = fromAccount.getBalance() - amount;
+        double newBalanceDestination = toAccount.getBalance() + amount;
+
+        if (newBalanceOrigin < 0 || newBalanceDestination < 0) {
+            // Revertir cambios y retornar respuesta de error
+            return new ResponseEntity<>("Error in transaction", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        fromAccount.setBalance(newBalanceOrigin);
+        toAccount.setBalance(newBalanceDestination);
+/*
         // Actualizar los saldos de las cuentas
         double newBalanceOrigin = TransactionUtils.updateBalance(client.getAccounts(), fromAccountNumber, amount, TransactionType.DEBIT);
         double newBalanceDestination = TransactionUtils.updateBalance(toClientAccounts, toAccountNumber, amount, TransactionType.CREDIT);
@@ -77,7 +116,7 @@ public class TransactionController {
         if (newBalanceOrigin == -5.0 || newBalanceDestination == -5.0) {
             // Revertir cambios y retornar respuesta de error
             return new ResponseEntity<>("Error in transaction", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        }*/
 
         // Crear transacciones
         Transaction debitTransaction = new Transaction(TransactionType.DEBIT, amount*-1, description, LocalDateTime.now(), fromAccount);
