@@ -4,8 +4,6 @@ import com.mindhub.homebanking.models.Card;
 import com.mindhub.homebanking.models.CardColor;
 import com.mindhub.homebanking.models.CardType;
 import com.mindhub.homebanking.models.Client;
-import com.mindhub.homebanking.repository.CardRepository;
-import com.mindhub.homebanking.repository.ClientRepository;
 import com.mindhub.homebanking.Utils.CardUtils;
 import com.mindhub.homebanking.services.CardService;
 import com.mindhub.homebanking.services.ClientService;
@@ -39,12 +37,12 @@ public class CardController {
             return new ResponseEntity<>("You have " + cardColor + " " + cardType, HttpStatus.FORBIDDEN);
         }
 
-        String newCardNumber = CardUtils.generateRandomCardNumber();
+        String newCardNumber = CardUtils.generateRandomCardNumber(9999);
         if (this.cardService.existCard(newCardNumber)) {
         return new ResponseEntity<>("Card number already exists", HttpStatus.FORBIDDEN);
     }
 
-        Card newCard = new Card(client.getFirstName() + " " + client.getLastName(), cardType, cardColor, CardUtils.generateRandomCardNumber(), CardUtils.generateRandomCVV(), LocalDate.now(), LocalDate.now().plusYears(5));
+        Card newCard = new Card(client.getFirstName() + " " + client.getLastName(), cardType, cardColor, CardUtils.generateRandomCardNumber(9999), CardUtils.generateRandomCVV(), LocalDate.now(), LocalDate.now().plusYears(5));
         client.addCard(newCard);
        this.cardService.saveCard(newCard);
 

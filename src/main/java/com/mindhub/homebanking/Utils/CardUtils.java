@@ -19,7 +19,7 @@ public final class CardUtils {
         return cardRepository.existsByNumber(cardNumber);
     }
 
-public static String generateRandomCardNumber() {
+    public static String generateRandomCardNumber(int length) {
         Random random = new Random();
         StringBuilder cardNumber = new StringBuilder();
 
@@ -32,7 +32,8 @@ public static String generateRandomCardNumber() {
         }
         return cardNumber.toString();
     }
- public static String generateRandomSection() {
+
+    public static String generateRandomSection() {
         Random random = new Random();
         StringBuilder section = new StringBuilder();
         for (int i = 0; i < 4; i++) {
@@ -44,4 +45,6 @@ public static String generateRandomCardNumber() {
         Random random = new Random();
         return 100 + random.nextInt(900); // Generar un número aleatorio de tres dígitos (100-999)
     }
+
+
 }
