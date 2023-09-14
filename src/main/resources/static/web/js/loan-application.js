@@ -11,6 +11,8 @@ Vue.createApp({
             accountToNumber: "VIN",
             amount: 0,
             fees: [],
+            totalLoan:[],
+
         };
     },
     methods: {

@@ -21,8 +21,8 @@ public class HomebankingApplication {
 		SpringApplication.run(HomebankingApplication.class, args);
 	}
 
-
-	/*@Autowired
+/*
+	@Autowired
 	private PasswordEncoder passwordEncoder;*/
 	@Bean
 	public CommandLineRunner initData(
@@ -103,10 +103,10 @@ public class HomebankingApplication {
 
 
 			// Crear ClientLoan para Melba
-			ClientLoan melbaHipotecario = new ClientLoan(400000.0, 60, melba, hipotecario);
+			ClientLoan melbaHipotecario = new ClientLoan(400000.0*1.2, 60, melba, hipotecario);
 			clientLoanRepository.save(melbaHipotecario);
 
-			ClientLoan melbaPersonal = new ClientLoan(50000.0, 12, melba, personal);
+			ClientLoan melbaPersonal = new ClientLoan(50000.0*1.2, 12, melba, personal);
 			clientLoanRepository.save(melbaPersonal);
 
 
@@ -182,10 +182,10 @@ public class HomebankingApplication {
 
 
 			// Crear ClientLoan para Marco
-			ClientLoan marcoPersonal = new ClientLoan(100000.0, 24, marco, personal);
+			ClientLoan marcoPersonal = new ClientLoan(100000.0*1.2, 24, marco, personal);
 			clientLoanRepository.save(marcoPersonal);
 
-			ClientLoan marcoAutomotriz = new ClientLoan(200000.0, 36, marco, automotriz);
+			ClientLoan marcoAutomotriz = new ClientLoan(200000.0*1.2, 36, marco, automotriz);
 			clientLoanRepository.save(marcoAutomotriz);
 
 

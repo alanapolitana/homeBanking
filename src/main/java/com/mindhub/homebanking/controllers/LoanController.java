@@ -96,19 +96,15 @@ public class LoanController {
         if (amount > loan.getMaxAmount()) {
             return new ResponseEntity<>("The amount is greater than the maximum allowed", HttpStatus.FORBIDDEN);
         }
-
-        Transaction transaction = new Transaction();
-        transaction.setType(TransactionType.CREDIT);
-        transaction.setDescription(loan.getName() + " loan approved");
-        transaction.setAmount(amount*1.2);
-        transaction.setDate(LocalDateTime.now());
-
         destinationAccount.setBalance(destinationAccount.getBalance() + amount);
+
+
+        Transaction transaction = new Transaction(TransactionType.CREDIT,amount, loan.getName() + " loan approved",LocalDateTime.now(),destinationAccount);
 
         destinationAccount.addTransaction(transaction);
         transactionService.saveTransaction(transaction);
 
-        ClientLoan clientLoan = new ClientLoan(amount,payments,client,loan);
+        ClientLoan clientLoan = new ClientLoan((amount + amount*0.2),payments,client,loan);
         clientLoanService.saveClientLoan(clientLoan);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
