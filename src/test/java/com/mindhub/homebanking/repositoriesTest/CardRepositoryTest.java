@@ -27,9 +27,4 @@ public class CardRepositoryTest {
         List<Card> cards = cardRepository.findAll();
         assertThat(cards,is(not(empty())));
     }
-
-
-
-
-
 }
