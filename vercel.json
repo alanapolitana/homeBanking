@@ -1,7 +1,7 @@
 {
   "routes": [
     {
-      "src": "/manager.html",
+      "src": "/src/main/resources/static/manager.html",
       "dest": "/src/main/resources/static/manager.html"
     }
   ]
