@@ -1,5 +1,4 @@
-#FROM gradle:11.0.22-jdk11
-FROM gradle:8.2.1-jdk11-alpine
+FROM gradle:8.2.1-jdk11
 
 COPY . .
 
